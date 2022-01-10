@@ -20,5 +20,14 @@ const utiliserBD = async (operation,reponse) =>
     }
 };
 
+app.get("api/produits", async (requete,reponse) => {
+    utiliserBD(async (db) => {
+        const produits = await db
+        .collection("Produits")
+        .find({}).toArray();
+
+        reponse.status(200).json(produits)
+    }, reponse);
+});
 app.listen(8000, () => "En écoute sur le port 8000");
 
