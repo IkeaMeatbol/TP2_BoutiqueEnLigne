@@ -20,7 +20,7 @@ const utiliserBD = async (operation,reponse) =>
     }
 };
 
-app.get("api/produits", async (requete,reponse) => {
+app.get("/api/produits", async (requete,reponse) => {
     utiliserBD(async (db) => {
         const produits = await db
         .collection("Produits")
