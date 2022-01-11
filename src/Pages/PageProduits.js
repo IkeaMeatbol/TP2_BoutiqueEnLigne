@@ -11,7 +11,11 @@ export const PageProduits = () => {
     setProduits(produits);
   }
 
-  function DetailProduit(produit) {
+  useEffect(() =>{
+  GetTousLesProduits();
+}, []);
+
+  function DetailProduit({produit}) {
     return (
       <>
         <Card style={{ width: "18rem" }}>
@@ -31,7 +35,7 @@ export const PageProduits = () => {
     );
   }
 
-    function ListeProduit(produits)
+    function ListeProduit({produits})
     {
         return (
             <>
