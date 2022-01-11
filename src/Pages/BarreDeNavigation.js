@@ -15,6 +15,7 @@ function BarreDeNavigation()
                 <NavbarCollapse id="basic-navbar-nav">
                     <Nav style={{ width: "100%" }}>
                         <Nav.Link href="/">Accueil</Nav.Link>
+                        <Nav.Link href="/Produits">Produits</Nav.Link>
                         <Nav.Link href="/Admin">Page Admin</Nav.Link>
                     </Nav>
                     <Nav className="justify-content-end" style={{ width: "100%" }}>

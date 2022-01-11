@@ -22,7 +22,7 @@ function App() {
           <Route path="*" element={"Tes perdu mon chum"} exact />
           <Route path="/SignUp" element={<SignUp />} exact /> 
           <Route path="/LogIn" element={<LogIn />} exact /> 
-          <Route path ="/produits" element={<PageProduits />} exact />
+          <Route path ="/Produits" element={<PageProduits />} exact />
            {/* Exemple d'une page privee, le moyen du prof ne marchais pas vraiment */}
           <Route exact path='/RoutePrive' element={<RoutePrive/>}>
             <Route exact path='/RoutePrive' element={"Voici la route prive"}/>

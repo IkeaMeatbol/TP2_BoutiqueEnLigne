@@ -29,5 +29,41 @@ app.get("/api/produits", async (requete,reponse) => {
         reponse.status(200).json(produits)
     }, reponse);
 });
-app.listen(8000, () => "En écoute sur le port 8000");
 
+
+app.post('/api/Connection', (requete, reponse) => {
+    const {Username,Password} = requete.body;
+    if (Username !== undefined && Password !== undefined ) {
+        utiliserBD(async (db) => {
+            const User = await db.collection("Utilisateurs").findOne({Username: Username, Password: Password});
+            console.log(User);
+            
+            if (User !== null) {
+                reponse.status(200).send(true)
+            } else{
+                reponse.status(404).send(false);
+            }            
+        }, reponse); 
+    } else {
+        reponse.status(500).send("certain parametres ne sont pas definis")
+    }
+})
+
+app.put('/api/Inscription', (requete, reponse) => {
+    const {Username,Password} = requete.body;
+    if (Username !== undefined && Password !== undefined ) {
+        utiliserBD(async (db) => {
+            const User = await db.collection("Utilisateurs").findOne({Username: Username});
+            if (User === null) {
+                await db.collection('Utilisateurs').insertOne({Username: Username, Password: Password});
+                reponse.status(202).send(true)
+            } else{
+                reponse.status(400).send(false);
+            }
+        }, reponse); 
+    } else {
+        reponse.status(500).send("certain parametres ne sont pas definis")
+    }
+})
+
+app.listen(8000, () => "En écoute sur le port 8000");
