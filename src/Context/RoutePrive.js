@@ -4,8 +4,8 @@ import { UtiliseAuth } from "./Auth";
 
 function RoutePrive({ component: Component, ...rest }) {
   const {authentification} = UtiliseAuth();
-
-  return authentification ? <Outlet /> : <Navigate to="/" />;
+  console.log(authentification)
+  return authentification == "admin" ? <Outlet /> : <Navigate to="/" />;
 }
 
 export default RoutePrive;

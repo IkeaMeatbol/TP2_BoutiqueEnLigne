@@ -36,9 +36,14 @@ app.post('/api/Connection', (requete, reponse) => {
     if (Username !== undefined && Password !== undefined ) {
         utiliserBD(async (db) => {
             const User = await db.collection("Utilisateurs").findOne({Username: Username, Password: Password});
-            console.log(User);
             
             if (User !== null) {
+                await db.collection('Connecter').updateOne( {id: 1}, 
+                    {'$set' : {
+                        Username: Username
+                    }}
+                );
+
                 reponse.status(200).send(true)
             } else{
                 reponse.status(404).send(false);
@@ -49,13 +54,20 @@ app.post('/api/Connection', (requete, reponse) => {
     }
 })
 
+app.get("/api/EstConnecter", async (requete,reponse) => {
+    utiliserBD(async (db) => {
+        const UserConnecter = await db.collection("Connecter").findOne({id: 1})
+        reponse.status(200).json(UserConnecter.Username)
+    }, reponse);
+});
+
 app.put('/api/Inscription', (requete, reponse) => {
     const {Username,Password} = requete.body;
     if (Username !== undefined && Password !== undefined ) {
         utiliserBD(async (db) => {
             const User = await db.collection("Utilisateurs").findOne({Username: Username});
-            if (User === null) {
-                await db.collection('Utilisateurs').insertOne({Username: Username, Password: Password});
+            if (user === null) {
+                await db.collection('Utilisateurs').insertOne({Username: Username.toLowerCase(), Password: Password});
                 reponse.status(202).send(true)
             } else{
                 reponse.status(400).send(false);

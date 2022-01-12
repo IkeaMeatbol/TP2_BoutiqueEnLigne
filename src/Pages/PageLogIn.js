@@ -1,8 +1,10 @@
 import React, { useState} from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom";
+import { UtiliseAuth } from "../Context/Auth"
 
 function LogIn() {
+    const { setAuthentification } = UtiliseAuth();
     const [Username, setUsername] = useState("");
     const [Password, setPassword] = useState("");
     const [error, setError] = useState("")
@@ -25,7 +27,7 @@ function LogIn() {
             });   
 
             if (result.ok && isComplete) {
-                setError("");
+                setAuthentification(Username);
                 navigate('/');
                 return;
             } else {
