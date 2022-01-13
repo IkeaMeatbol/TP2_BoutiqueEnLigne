@@ -34,21 +34,19 @@ app.get("/api/produits", async (requete,reponse) => {
 app.post('/api/Connection', (requete, reponse) => {
     const {Username,Password} = requete.body;
     if (Username !== undefined && Password !== undefined ) {
-        utiliserBD(async (db) => {
+        if (Username !== "admin" && Password !== "admin" ) {
+            reponse.status(200).send(true);
+        } else {
+            utiliserBD(async (db) => {
             const User = await db.collection("Utilisateurs").findOne({Username: Username, Password: Password});
             
-            if (User !== null) {
-                await db.collection('Connecter').updateOne( {id: 1}, 
-                    {'$set' : {
-                        Username: Username
-                    }}
-                );
-
-                reponse.status(200).send(true)
-            } else{
-                reponse.status(404).send(false);
-            }            
-        }, reponse); 
+                if (User !== null) {
+                    reponse.status(200).send(true);
+                } else{
+                    reponse.status(404).send(false);
+                }            
+            }, reponse); 
+        }
     } else {
         reponse.status(500).send("certain parametres ne sont pas definis")
     }
