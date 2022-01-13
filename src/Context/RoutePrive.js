@@ -3,9 +3,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { UtiliseAuth } from "./Auth";
 
 function RoutePrive({ component: Component, ...rest }) {
-  const authentification = true
+  const { authentification } = UtiliseAuth()
 
-  return authentification ? <Outlet /> : <Navigate to="/" />;
+  return authentification == "admin" ? <Outlet /> : <Navigate to="/" />;
 }
 
 export default RoutePrive;
