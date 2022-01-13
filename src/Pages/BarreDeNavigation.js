@@ -23,13 +23,13 @@ function BarreDeNavigation()
         if (authentification !== undefined) {
             return (
                 <Nav className="justify-content-end" style={{ width: "100%" }}>
-                    <button style={{ background: 0, border:0 }} onClick={() => LogOut()}>Deconnection</button>
+                    <button style={{ background: 0, border:0 }} onClick={() => LogOut()}>Déconnexion</button>
                 </Nav>
             );
         } else {
             return (
                 <Nav className="justify-content-end" style={{ width: "100%" }}>
-                    <button style={{ background: 0, border:0 }} onClick={() => navigate('/LogIn')}>Connection</button>
+                    <button style={{ background: 0, border:0 }} onClick={() => navigate('/LogIn')}>Connexion</button>
                     <button style={{ background: 0, border:0 }} onClick={() => navigate('/SignUp')}>Inscription</button>
                 </Nav>
             );

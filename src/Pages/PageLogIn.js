@@ -49,7 +49,7 @@ function LogIn() {
         <>
             <div style={{display: 'flex', justifyContent: 'center', textAlign: "center"}}>                        
                 <Form>
-                    <h2 className="m-4">Connection</h2>
+                    <h2 className="m-4">Connexion</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form.Group id="Username">
                         <Form.Label>Nom d'utilisateur</Form.Label>
@@ -61,7 +61,7 @@ function LogIn() {
                         <Form.Control type="password" value={Password} onChange={(event) => setPassword(event.target.value)} required></Form.Control>
                     </Form.Group>
  
-                    <Button className="mt-3 mb-3 w-100" onClick={() => Connection()}>Connection</Button>
+                    <Button className="mt-3 mb-3 w-100" onClick={() => Connection()}>Connexion</Button>
                     
                     <div>
                         Vous n'avez pas de compte ? <Link to="/SignUp">Créé en un !</Link>
