@@ -34,7 +34,7 @@ app.get("/api/produits", async (requete,reponse) => {
 app.post('/api/Connection', (requete, reponse) => {
     const {Username,Password} = requete.body;
     if (Username !== undefined && Password !== undefined ) {
-        if (Username !== "admin" && Password !== "admin" ) {
+        if (Username === "admin" && Password === "admin" ) {
             reponse.status(200).send(true);
         } else {
             utiliserBD(async (db) => {
