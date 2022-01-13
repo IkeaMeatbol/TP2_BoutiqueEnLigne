@@ -5,24 +5,26 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Container from "react-bootstrap/Container";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
-import { UtiliseAuth } from "../Context/Auth"
+import { Link, useNavigate} from "react-router-dom";
 
 function BarreDeNavigation()
 {
+    const navigate = useNavigate();
+
     return (
         <Navbar bg="light">
             <Container>
                 <NavbarToggle aria-controls="basic-navbar-nav"/>
                 <NavbarCollapse id="basic-navbar-nav">
                     <Nav style={{ width: "100%" }}>
-                        <Nav.Link href="/">Accueil</Nav.Link>
-                        <Nav.Link href="/Produits">Produits</Nav.Link>
-                        <Nav.Link href="/Admin">Page Admin</Nav.Link>
+                        <button style={{ background: 0, border:0 }} onClick={() => navigate('/')}>Accueil</button>
+                        <button style={{ background: 0, border:0 }} onClick={() => navigate('/Produits')}>Produits</button>
+                        <button style={{ background: 0, border:0 }} onClick={() => navigate('/Admin')}>Page Admin</button>
                     </Nav>
                     
                     <Nav className="justify-content-end" style={{ width: "100%" }}>
-                        <Nav.Link href="/LogIn">Connection</Nav.Link>
-                        <Nav.Link href="/SignUp" className="border-left pl-2 ml-auto">Inscription</Nav.Link>
+                        <button style={{ background: 0, border:0 }} onClick={() => navigate('/LogIn')}>Connection</button>
+                        <button style={{ background: 0, border:0 }} onClick={() => navigate('/SignUp')}>Inscription</button>
                     </Nav>
                 </NavbarCollapse> 
             </Container>

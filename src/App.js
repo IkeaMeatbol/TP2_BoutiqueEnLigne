@@ -12,17 +12,10 @@ import { PageProduits } from "./Pages/PageProduits";
 function App() {
   const [authentification, setAuthentification] = useState();
 
-  async function GetUserConnecter() {
-    const result = await fetch("/api/EstConnecter");
-    const Username = result.json();
-
-    setAuthentification(Username);
-  }
-
   return (
     <ContextAuth.Provider value={{authentification, setAuthentification}}>
-    <BarreDeNavigation />
     <Router>
+    <BarreDeNavigation />
       <Container>
         <Routes>
           <Route path="/" element={authentification} exact />

@@ -54,13 +54,6 @@ app.post('/api/Connection', (requete, reponse) => {
     }
 })
 
-app.get("/api/EstConnecter", async (requete,reponse) => {
-    utiliserBD(async (db) => {
-        const UserConnecter = await db.collection("Connecter").findOne({id: 1})
-        reponse.status(200).json(UserConnecter.Username)
-    }, reponse);
-});
-
 app.put('/api/Inscription', (requete, reponse) => {
     const {Username,Password} = requete.body;
     if (Username !== undefined && Password !== undefined ) {
