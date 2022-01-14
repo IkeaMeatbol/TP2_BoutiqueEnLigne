@@ -1,12 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { Pagination,Card, Row, Button } from "react-bootstrap";
+import "../index.css";
 
 
-export const PaginationArticle = ({ produits, nombrePages, nombreProduit }) => {
+export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi }) => {
   const [pageCourante, setPageCourante] = useState(1);
+  const [nombrePages, setNombresPages] = useState(Math.ceil(produits.length/nombreProduit));
 
-  
+  console.log(categorieChoisi);
 
   function affichagePage(nombrePages) {
     let page = [];
@@ -74,10 +76,25 @@ function premierePage(){
     );
   }
 
-  function ListeProduit({ produits, nombreProduit, pageCourante }) {
+  function FiltrerProduit({produits, categorieChoisi})
+  {
+    const categorie= Object.keys(categorieChoisi).filter(k => categorieChoisi[k]);
+    const produitsFiltres = produits.filter(produit=>
+        categorie.length >0 ? categorie.includes(produit.categorie) : true
+        );
+       
+    return produitsFiltres;
+  }
+
+  function ListeProduit({ produits, nombreProduit, pageCourante, categorieChoisi }) {
+  
+      const produitsFiltres = FiltrerProduit({produits,categorieChoisi});
+
+    setNombresPages(Math.ceil(produitsFiltres.length/nombreProduit));
+
     const premierArticle = pageCourante * nombreProduit - nombreProduit;
     const dernierArticle  = premierArticle + Number(nombreProduit);
-    const produitsPage = produits.slice(premierArticle,dernierArticle);
+    const produitsPage =  produitsFiltres.slice(premierArticle,dernierArticle);
 
     return (
       <>
@@ -93,8 +110,8 @@ function premierePage(){
 
   return (
     <>
-      <Row><ListeProduit produits={produits} nombreProduit={nombreProduit} pageCourante={pageCourante}/></Row>
-      <Pagination>
+      <Row><ListeProduit produits={produits} nombreProduit={nombreProduit} pageCourante={pageCourante} categorieChoisi={categorieChoisi}/></Row>
+      <Pagination variant="success">
         <Pagination.First disabled={disabledClickRetour(pageCourante,nombrePages)} onClick={premierePage} />
         <Pagination.Prev disabled={disabledClickRetour(pageCourante,nombrePages)} onClick={pagePrecedente} />
         {affichagePage(nombrePages)}
