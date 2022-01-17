@@ -39,7 +39,7 @@ function BarreDeNavigation()
     function PageAdmin() {
         if (authentification === "admin") {
             return (
-                <button style={{ background: 0, border:0 }} onClick={() => navigate('/Admin')}>Page Admin</button>
+                <button style={{ background: 0, border:0 }} onClick={() => navigate('/Admin')}>Gestion</button>
             )
         } else {
             return (
