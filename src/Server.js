@@ -57,7 +57,7 @@ app.put('/api/Inscription', (requete, reponse) => {
     if (Username !== undefined && Password !== undefined ) {
         utiliserBD(async (db) => {
             const User = await db.collection("Utilisateurs").findOne({Username: Username});
-            if (user === null) {
+            if (User === null) {
                 await db.collection('Utilisateurs').insertOne({Username: Username.toLowerCase(), Password: Password});
                 reponse.status(202).send(true)
             } else{

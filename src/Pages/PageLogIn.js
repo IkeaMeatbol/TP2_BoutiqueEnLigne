@@ -18,7 +18,7 @@ function LogIn() {
             const result = await fetch('/api/Connexion',
             {
                 method: 'POST',
-                body: JSON.stringify({ Username, Password }),
+                body: JSON.stringify({ Username , Password }),
                 headers: 
                 {
                     'Content-Type': 'application/json',
