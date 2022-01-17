@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import { PaginationArticle } from "./pagination";
 import { Container, Row,ProgressBar, Button, ButtonGroup,ToggleButtonGroup, ToggleButton, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UtiliseAuth } from "../Context/Auth";
 
+// const { authentification } = UtiliseAuth()
 
 export const PageProduits = () => {
   const [produits, setProduits] = useState([]);
@@ -78,8 +80,7 @@ function FiltrerCategorie()
       </ToggleButtonGroup>
       </>
     )
-  }
- 
+  } 
   
   return (
     <>

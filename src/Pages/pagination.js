@@ -58,23 +58,39 @@ function premierePage(){
     return pageCourante === 1 ? "disabled" : "";
      }
 
-  function DetailProduit({ produits }) {
+     function detailProduitRabais ({ produit })
+     {
+       return (
+         <>
+         <p className="texteRabais">{produit.prix}$</p>
+          Nouveau prix : <b>{(produit.prix * (1-produit.rabais)).toFixed(2)}$ </b>
+               Économisez : {(produit.rabais*produit.prix).toFixed(2)}$ ({produit.rabais*100}%)
+               
+         </>
+       )
+     }
+  function DetailProduit({ produit }) {
 
     return (
       <>
-        <Card style={{ width: "15rem" }}>
+        <Card style={{ width: "15rem" }} border="success">
           <Card.Body>
-            <Card.Title>{produits.nom}</Card.Title>
+            <Card.Title>{produit.nom}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
-              {produits.categorie}
+              {produit.categorie}
             </Card.Subtitle>
-            <Card.Text>{produits.prix}</Card.Text>
-         <Button variant="success">Ajouter au panier</Button>
+            <Card.Text> {produit.description.substring(0, 50)} ...  <br />
+            {produit.rabais >0 ? detailProduitRabais({produit}) : produit.prix+"$"} <br />
+            Quantité : {produit.quantite}            
+            </Card.Text>
+            {produit.quantite === 0 ? <b>Produit non disponible</b> :  <Button variant="success"> Ajouter au panier</Button>}
+        
           </Card.Body>
         </Card>
       </>
     );
   }
+
 
   function FiltrerProduit({produits, categorieChoisi})
   {
@@ -100,7 +116,7 @@ function premierePage(){
       <>
         <Row>
           {produitsPage.map((produit, idx) => {
-            return  <DetailProduit produits={produit} key={idx} />;
+            return  <DetailProduit produit={produit} key={idx} />;
           })}
         </Row>
       </>

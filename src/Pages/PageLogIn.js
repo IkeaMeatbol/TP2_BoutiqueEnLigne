@@ -10,12 +10,12 @@ function LogIn() {
     const [error, setError] = useState("")
     const navigate = useNavigate();
 
-    const Connection = async () => 
+    const Connexion = async () => 
     {
         let isComplete = (Username !== "" && Password !== "");
 
         if (isComplete) {
-            const result = await fetch('/api/Connection',
+            const result = await fetch('/api/Connexion',
             {
                 method: 'POST',
                 body: JSON.stringify({ Username, Password }),
@@ -61,7 +61,7 @@ function LogIn() {
                         <Form.Control type="password" value={Password} onChange={(event) => setPassword(event.target.value)} required></Form.Control>
                     </Form.Group>
  
-                    <Button className="mt-3 mb-3 w-100" onClick={() => Connection()}>Connexion</Button>
+                    <Button className="mt-3 mb-3 w-100" onClick={() => Connexion()}>Connexion</Button>
                     
                     <div>
                         Vous n'avez pas de compte ? <Link to="/SignUp">Créé en un !</Link>

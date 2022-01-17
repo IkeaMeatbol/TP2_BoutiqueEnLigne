@@ -33,7 +33,7 @@ function SignUp() {
                 return;
             } else {
                 setError("");
-                setError("Le nom d'utilisateur est deja utiliser");
+                setError("Le nom d'utilisateur est déjà utilisé");
             }
             
             setUsername("");

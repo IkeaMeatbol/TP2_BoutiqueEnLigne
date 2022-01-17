@@ -31,7 +31,7 @@ app.get("/api/produits", async (requete,reponse) => {
 });
 
 
-app.post('/api/Connection', (requete, reponse) => {
+app.post('/api/Connexion', (requete, reponse) => {
     const {Username,Password} = requete.body;
     if (Username !== undefined && Password !== undefined ) {
         if (Username === "admin" && Password === "admin" ) {
@@ -48,7 +48,7 @@ app.post('/api/Connection', (requete, reponse) => {
             }, reponse); 
         }
     } else {
-        reponse.status(500).send("certain parametres ne sont pas definis")
+        reponse.status(500).send("Certains paramètres ne sont pas définis")
     }
 })
 
@@ -65,7 +65,7 @@ app.put('/api/Inscription', (requete, reponse) => {
             }
         }, reponse); 
     } else {
-        reponse.status(500).send("certain parametres ne sont pas definis")
+        reponse.status(500).send("Certains paramètres ne sont pas définis")
     }
 })
 
