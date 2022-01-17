@@ -8,6 +8,7 @@ import BarreDeNavigation from "./Pages/BarreDeNavigation";
 import SignUp from './Pages/PageSignUp';
 import LogIn from './Pages/PageLogIn';
 import { PageProduits } from "./Pages/PageProduits";
+import { PageAdmin } from './Pages/PageAdmin';
 
 function App() {
   const [authentification, setAuthentification] = useState();
@@ -26,7 +27,7 @@ function App() {
 
            {/* Exemple d'une page privee, le moyen du prof ne marchais pas vraiment */}
           <Route exact path='/Admin' element={<RoutePrive/>}>
-            <Route exact path='/Admin' element={"Voici la route prive"}/>
+            <Route exact path='/Admin' element={<PageAdmin />}/>
           </Route>
 
         </Routes>
