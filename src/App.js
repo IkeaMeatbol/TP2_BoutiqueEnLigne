@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import { ContextAuth } from "./Context/Auth";
 import RoutePrive from "./Context/RoutePrive"
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BarreDeNavigation from "./Pages/BarreDeNavigation";
 import SignUp from './Pages/PageSignUp';
 import LogIn from './Pages/PageLogIn';

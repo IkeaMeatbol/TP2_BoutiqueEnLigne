@@ -1,14 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pagination,Card, Row, Button } from "react-bootstrap";
 import "../index.css";
 
 
-export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi }) => {
+export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi, authentification}) => {
   const [pageCourante, setPageCourante] = useState(1);
-  const [nombrePages, setNombresPages] = useState(Math.ceil(produits.length/nombreProduit));
+  const [nombrePages, setNombresPages] = useState();
 
-  console.log(categorieChoisi);
+  const [utilisateur, setUtilisateur] = useState({
+    Username : authentification.authentification,
+    Panier : []
+  })
 
   function affichagePage(nombrePages) {
     let page = [];
@@ -62,7 +65,7 @@ function premierePage(){
      {
        return (
          <>
-         <p className="texteRabais">{produit.prix}$</p>
+       Ancien prix : {produit.prix}$
           Nouveau prix : <b>{(produit.prix * (1-produit.rabais)).toFixed(2)}$ </b>
                Économisez : {(produit.rabais*produit.prix).toFixed(2)}$ ({produit.rabais*100}%)
                
@@ -106,7 +109,9 @@ function premierePage(){
   
       const produitsFiltres = FiltrerProduit({produits,categorieChoisi});
 
+  useEffect(()=> {
     setNombresPages(Math.ceil(produitsFiltres.length/nombreProduit));
+  });
 
     const premierArticle = pageCourante * nombreProduit - nombreProduit;
     const dernierArticle  = premierArticle + Number(nombreProduit);

@@ -5,13 +5,13 @@ import { Container, Row,ProgressBar, Button, ButtonGroup,ToggleButtonGroup, Togg
 import "bootstrap/dist/css/bootstrap.min.css";
 import { UtiliseAuth } from "../Context/Auth";
 
-// const { authentification } = UtiliseAuth()
 
 export const PageProduits = () => {
   const [produits, setProduits] = useState([]);
   const [nombreProduit, setNombreProduit] = useState(24);
   const choixNombreElement = [12,24,48,"Tous"];
-  
+  const authentification = UtiliseAuth();
+
 
   async function GetTousLesProduits() {
     const result = await fetch("/api/produits");
@@ -76,7 +76,6 @@ function FiltrerCategorie()
             {categorie}
           </ToggleButton>
         })}
-        {console.log(choixCategorie)}
       </ToggleButtonGroup>
       </>
     )
@@ -84,6 +83,7 @@ function FiltrerCategorie()
   
   return (
     <>
+    {authentification.authentification === undefined ? <h1>Vous devez être connecté pour voir les produits</h1> : 
       <Container>
         <Row>
         <Col lg={1}></Col>
@@ -92,9 +92,9 @@ function FiltrerCategorie()
         </Row>
         <Row>
         <Col lg={1}><FiltrerCategorie/></Col>
-        <Col>  <PaginationArticle produits={produits}  nombreProduit={nombreProduit} categorieChoisi={envoiCategorieChoisis()}/> </Col>
+        <Col>  <PaginationArticle produits={produits}  nombreProduit={nombreProduit} categorieChoisi={envoiCategorieChoisis()} authentification={authentification}/> </Col>
         </Row>
-      </Container>
+      </Container>}
      
     </>
   );

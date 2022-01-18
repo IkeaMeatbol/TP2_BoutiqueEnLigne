@@ -1,11 +1,11 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Container from "react-bootstrap/Container";
 import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
-import { Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { UtiliseAuth } from "../Context/Auth";
 
 function BarreDeNavigation()
@@ -40,6 +40,7 @@ function BarreDeNavigation()
         if (authentification === "admin") {
             return (
                 <button style={{ background: 0, border:0 }} onClick={() => navigate('/Admin')}>Gestion</button>
+                
             )
         } else {
             return (

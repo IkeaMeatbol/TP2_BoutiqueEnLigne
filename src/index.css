@@ -12,11 +12,11 @@ code {
     monospace;
 }
 
-.texteRabais{
-  
+.texteRabais{  
   text-decoration: line-through;
-  margin-bottom: 0;
+  margin: 0 0 0 0;
 }
+
 /* .pagination > li > a
 {
     background-color: white;
