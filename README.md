@@ -1,6 +1,6 @@
 # TP2_BoutiqueEnLigne
 
-Jonathan Blouin - 2095112 : Connection à l’application
+Jonathan Blouin - 2095112 : Connexion à l’application
 
 Rémy Bernier - 2095502 : Section client
 
