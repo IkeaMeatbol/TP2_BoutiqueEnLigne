@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { PaginationArticle } from "./pagination";
-import { Container, Row,ProgressBar, Button, ButtonGroup,ToggleButtonGroup, ToggleButton, Col } from "react-bootstrap";
+import { Container, Row, Button, ButtonGroup,ToggleButtonGroup, ToggleButton, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { UtiliseAuth } from "../Context/Auth";
 
@@ -32,7 +32,7 @@ export const PageProduits = () => {
   {
     return (
       <>
-      <ButtonGroup type="radio"  size="sm" onClick={ (e) => setNombreProduit(e.target.value)}  checked={nombreProduit}>
+      <ButtonGroup type="radio"  size="sm" onClick={ (e) => setNombreProduit(e.target.value)}>
         {choixNombreElement.map((element, idx) => {
           return <Button variant="success" key={idx} id={idx} 
           value={idx === 3 ? nombreProduitTotal : element} >{element}</Button>          
@@ -66,7 +66,7 @@ function FiltrerCategorie()
  
     return (
       <>
-      <h6>Catégorie</h6>
+      <h6>Catégories</h6>
       
       <ToggleButtonGroup vertical name="Categorie" type="checkbox"  >
         {categories.map((categorie,idx) => {
@@ -83,16 +83,15 @@ function FiltrerCategorie()
   
   return (
     <>
-    {authentification.authentification === undefined ? <h1>Vous devez être connecté pour voir les produits</h1> : 
-      <Container>
-        <Row>
-        <Col lg={1}></Col>
-        <Col ><ProgressBar striped variant="success" min={0} now={nombreProduit} label={`Article`} max={nombreProduitTotal} /> </Col>
-        <Col lg={1} ><ChoixNombreElementParPage /></Col>
+    {authentification.authentification !== undefined ? <h1>Vous devez être connecté pour voir les produits</h1> : 
+      <Container >
+        <Row>      
+        <Col lg ={10} sm={5}> <h3>Sélection de produit</h3> </Col>
+        <Col lg={2} sm={1}><ChoixNombreElementParPage /></Col>
         </Row>
         <Row>
         <Col lg={1}><FiltrerCategorie/></Col>
-        <Col>  <PaginationArticle produits={produits}  nombreProduit={nombreProduit} categorieChoisi={envoiCategorieChoisis()} authentification={authentification}/> </Col>
+        <Col className={"containerProduit"}>  <PaginationArticle produits={produits}  nombreProduit={nombreProduit} categorieChoisi={envoiCategorieChoisis()} authentification={authentification}/> </Col>
         </Row>
       </Container>}
      

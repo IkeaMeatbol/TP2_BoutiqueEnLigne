@@ -1,7 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Pagination,Card, Row, Button } from "react-bootstrap";
+import { useState, useEffect} from "react";
+import { Pagination,Card, Row, Button} from "react-bootstrap";
 import "../index.css";
+
 
 
 export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi, authentification}) => {
@@ -9,8 +10,8 @@ export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi, au
   const [nombrePages, setNombresPages] = useState();
 
   const [utilisateur, setUtilisateur] = useState({
-    Username : authentification.authentification,
-    Panier : []
+    nomClient : authentification.authentification,
+    produits : []
   })
 
   function affichagePage(nombrePages) {
@@ -41,6 +42,7 @@ export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi, au
       setPageCourante(pageCourante - 1);
     }
   }
+  
 function premierePage(){
     setPageCourante(1);
 }
@@ -54,7 +56,7 @@ function premierePage(){
   }
 
   function disabledClickSuivant(pageCourante,nombrePages){
- return pageCourante === nombrePages ? "disabled" : "";
+  return pageCourante === nombrePages ? "disabled" : "";
   }
 
   function disabledClickRetour(pageCourante,nombrePages){
@@ -65,28 +67,28 @@ function premierePage(){
      {
        return (
          <>
-       Ancien prix : {produit.prix}$
-          Nouveau prix : <b>{(produit.prix * (1-produit.rabais)).toFixed(2)}$ </b>
-               Économisez : {(produit.rabais*produit.prix).toFixed(2)}$ ({produit.rabais*100}%)
+      Ancien prix :  <div className="texteRabais">{produit.prix}$ </div>
+       <div>Nouveau prix : <div className="texteNouveauPrix">{(produit.prix * (1-produit.rabais)).toFixed(2)}$ </div></div>
+       <div> Rabais : {(produit.rabais*produit.prix).toFixed(2)}$ ({(produit.rabais*100).toFixed()}%)</div>
                
          </>
        )
      }
+     
   function DetailProduit({ produit }) {
 
     return (
       <>
-        <Card style={{ width: "15rem" }} border="success">
+        <Card style={{ width: "15rem" }} className="hover-shadow" border="success">
           <Card.Body>
             <Card.Title>{produit.nom}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
               {produit.categorie}
             </Card.Subtitle>
-            <Card.Text> {produit.description.substring(0, 50)} ...  <br />
-            {produit.rabais >0 ? detailProduitRabais({produit}) : produit.prix+"$"} <br />
-            Quantité : {produit.quantite}            
+            <Card.Text as='div'> {produit.description.substring(0, 50)} ...  <br />
+            {produit.rabais >0 ? detailProduitRabais({produit}) : produit.prix+"$"} <br />        
             </Card.Text>
-            {produit.quantite === 0 ? <b>Produit non disponible</b> :  <Button variant="success"> Ajouter au panier</Button>}
+            {produit.quantite === 0 ? <b>Produit non disponible</b> :  <Button variant="success" onClick={()=> alert('Section panier à venir')}> Ajouter au panier</Button>}
         
           </Card.Body>
         </Card>
@@ -132,7 +134,8 @@ function premierePage(){
   return (
     <>
       <Row><ListeProduit produits={produits} nombreProduit={nombreProduit} pageCourante={pageCourante} categorieChoisi={categorieChoisi}/></Row>
-      <Pagination variant="success">
+      <Row>
+        <Pagination variant="success">
         <Pagination.First disabled={disabledClickRetour(pageCourante,nombrePages)} onClick={premierePage} />
         <Pagination.Prev disabled={disabledClickRetour(pageCourante,nombrePages)} onClick={pagePrecedente} />
         {affichagePage(nombrePages)}
@@ -140,6 +143,7 @@ function premierePage(){
         <Pagination.Next  disabled={disabledClickSuivant(pageCourante,nombrePages)} onClick={pageSuivante} />
         <Pagination.Last  disabled={disabledClickSuivant(pageCourante,nombrePages)} onClick={dernierePage} />
       </Pagination>
+      </Row>
     </>
   );
 };
