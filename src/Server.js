@@ -69,4 +69,30 @@ app.put('/api/Inscription', (requete, reponse) => {
     }
 })
 
+app.get("/api/produits/:id", async (requete, reponse) => {
+    const idProduit = requete.params.id;
+    utiliserBD(async (db) => {
+        const unProduit = await db.collection("Produits").findOne({_id: ObjectId(idProduit)});
+
+        reponse.status(200).json(unProduit)
+    }, reponse);    
+});
+
+app.delete('/api/produits/supprimer/:id', (requete, reponse) => {
+    const idProduit = requete.params.id;
+    utiliserBD(async(db) => {
+        const result = await db.collection('Produits').deleteOne({_id: ObjectId(idProduit)});
+
+        if(result.deletedCount === 1)
+        {
+            reponse.status(200).send(`${result.deletedCount} produit a été supprimé`);
+        }
+        else
+        {
+            reponse.status(500).send("Le produit n'a pas été retiré");
+        }
+    }, reponse).catch( () => reponse.status(500).send("Erreur: Le produit n'a pas été retiré")
+    );
+});
+
 app.listen(8000, () => "En écoute sur le port 8000");
