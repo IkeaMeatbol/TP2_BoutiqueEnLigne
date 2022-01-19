@@ -9,6 +9,7 @@ import SignUp from './Pages/PageSignUp';
 import LogIn from './Pages/PageLogIn';
 import { PageProduits } from "./Pages/PageProduits";
 import { PageAdmin } from './Pages/PageAdmin';
+import { PageSupprimer } from './Pages/PageSupprimer';
 
 function App() {
   const [authentification, setAuthentification] = useState();
@@ -28,6 +29,7 @@ function App() {
            {/* Exemple d'une page privee, le moyen du prof ne marchais pas vraiment */}
           <Route exact path='/Admin' element={<RoutePrive/>}>
             <Route exact path='/Admin' element={<PageAdmin />}/>
+            <Route exact path = "/Admin/supprimer/:id" element={<PageSupprimer />} />
           </Route>
 
         </Routes>

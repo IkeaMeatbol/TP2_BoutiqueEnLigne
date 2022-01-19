@@ -1,5 +1,5 @@
 import express from "express";
-import {MongoClient} from 'mongodb';
+import {MongoClient, ObjectId} from 'mongodb';
 
 const app = express();
 app.use(express.json());
@@ -76,6 +76,7 @@ app.get("/api/produits/:id", async (requete, reponse) => {
 
         reponse.status(200).json(unProduit)
     }, reponse);    
+    
 });
 
 app.delete('/api/produits/supprimer/:id', (requete, reponse) => {
