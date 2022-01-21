@@ -66,7 +66,7 @@ export const PageAdmin = () => {
                 <Alert variant='primary'>
                     <h1>Page de gestion</h1>
                 </Alert>
-                <Link style={{textDecoration: 'none'}} to="/" className="d-grid gap-2">
+                <Link style={{textDecoration: 'none'}} to={{ pathname: `/Admin/ajouter`}} className="d-grid gap-2">
                     <Button variant='success'>Ajouter un nouveau produit</Button>
                 </Link>
                 <Stockage produits={produits} />
