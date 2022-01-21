@@ -96,4 +96,33 @@ app.delete('/api/produits/supprimer/:id', (requete, reponse) => {
     );
 });
 
+app.post('/api/produits/ajouter', (requete, reponse) => {
+    const {nom, description, categorie, prix, rabais, quantite} = requete.body;
+
+    if(nom !== undefined && 
+        description !== undefined && 
+        categorie !== undefined && 
+        prix !== undefined && 
+        rabais !== undefined && 
+        quantite !== undefined)
+    {
+        utiliserBD(async(db) => 
+        {
+            await db.collection('Produits').insertOne({
+                nom: nom,
+                description: description,
+                categorie: categorie,
+                prix: prix,
+                rabais: rabais,
+                quantite: quantite
+            });            
+            reponse.status(200).send("produit ajouté avec succès");
+        }, reponse).catch(() => reponse.status(500).send("Erreur"));
+    }
+    else
+    {
+        reponse.status(400).send('Certains parametres sont indefinis');
+    }
+});
+
 app.listen(8000, () => "En écoute sur le port 8000");
