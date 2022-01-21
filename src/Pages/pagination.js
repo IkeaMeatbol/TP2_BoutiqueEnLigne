@@ -3,18 +3,19 @@ import { useState, useEffect} from "react";
 import { Pagination,Card, Row, Button} from "react-bootstrap";
 import "../index.css";
 
-
-
 export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi, authentification}) => {
   const [pageCourante, setPageCourante] = useState(1);
   const [nombrePages, setNombresPages] = useState();
 
-  const [utilisateur, setUtilisateur] = useState({
-    nomClient : authentification.authentification,
-    produits : []
-  })
+  //Serait a utiliser pour ajouter la section panier
+  // const [utilisateur, setUtilisateur] = useState({
+  //   nomClient : authentification.authentification,
+  //   produits : []
+  // })
 
   function affichagePage(nombrePages) {
+    //Tableau vide qui va se remplir selon le nombre de page qui est déterminé par les catégories choisient et le nombre
+    //éléments par page
     let page = [];
 
     for (let index = 1; index < nombrePages + 1; index++) {
@@ -63,22 +64,31 @@ function premierePage(){
     return pageCourante === 1 ? "disabled" : "";
      }
 
+function checkRabais (rabais)
+{
+  if (rabais > 1 ) {
+    rabais = rabais/100;
+  }
+  return rabais;
+}
      function detailProduitRabais ({ produit })
      {
+       //Vérification du rabais tout dépendament si la bd est construit pour avoir des rabais
+       //entre 0 et 1 ou 0 et 100
+      const rabais = checkRabais(produit.rabais);
        return (
          <>
       Ancien prix :  <div className="texteRabais">{produit.prix}$ </div>
-       <div>Nouveau prix : <div className="texteNouveauPrix">{(produit.prix * (1-produit.rabais)).toFixed(2)}$ </div></div>
-       <div> Rabais : {(produit.rabais*produit.prix).toFixed(2)}$ ({(produit.rabais*100).toFixed()}%)</div>
-               
+       <div>Nouveau prix : <div className="texteNouveauPrix">{(produit.prix * (1-rabais)).toFixed(2)}$ </div></div>
+       <div> Rabais : {(rabais*produit.prix).toFixed(2)}$ ({(rabais*100).toFixed()}%)</div>              
          </>
        )
      }
      
   function DetailProduit({ produit }) {
-
+//Les cards des produits avec leur détail 
     return (
-      <>
+            <>
         <Card style={{ width: "15rem" }} className="hover-shadow" border="success">
           <Card.Body>
             <Card.Title>{produit.nom}</Card.Title>
@@ -86,24 +96,23 @@ function premierePage(){
               {produit.categorie}
             </Card.Subtitle>
             <Card.Text as='div'> {produit.description.substring(0, 50)} ...  <br />
+            {/* Ici je regarde s'il y a un rabais sur l'article  */}
             {produit.rabais >0 ? detailProduitRabais({produit}) : produit.prix+"$"} <br />        
             </Card.Text>
-            {produit.quantite === 0 ? <b>Produit non disponible</b> :  <Button variant="success" onClick={()=> alert('Section panier à venir')}> Ajouter au panier</Button>}
-        
+            {produit.quantite === 0 ? <b>Produit non disponible</b> :  <Button variant="success" onClick={()=> alert('Section panier à venir')}> Ajouter au panier</Button>}       
           </Card.Body>
-        </Card>
+        </Card>        
       </>
     );
   }
 
-
   function FiltrerProduit({produits, categorieChoisi})
   {
+    //Le code filtre tout les articles selon les catégories choisient
     const categorie= Object.keys(categorieChoisi).filter(k => categorieChoisi[k]);
     const produitsFiltres = produits.filter(produit=>
         categorie.length >0 ? categorie.includes(produit.categorie) : true
-        );
-       
+        );       
     return produitsFiltres;
   }
 
@@ -111,6 +120,7 @@ function premierePage(){
   
       const produitsFiltres = FiltrerProduit({produits,categorieChoisi});
 
+      //UseEffect car sinon j'obtiens une erreur dans la console
   useEffect(()=> {
     setNombresPages(Math.ceil(produitsFiltres.length/nombreProduit));
   });
@@ -118,19 +128,17 @@ function premierePage(){
     const premierArticle = pageCourante * nombreProduit - nombreProduit;
     const dernierArticle  = premierArticle + Number(nombreProduit);
     const produitsPage =  produitsFiltres.slice(premierArticle,dernierArticle);
-
+//Map les articles selon la page et le nombre élément à afficher
     return (
       <>
         <Row>
           {produitsPage.map((produit, idx) => {
-            return  <DetailProduit produit={produit} key={idx} />;
+           return  <DetailProduit produit={produit} key={idx} />;
           })}
         </Row>
       </>
-
     );
         }
-
   return (
     <>
       <Row><ListeProduit produits={produits} nombreProduit={nombreProduit} pageCourante={pageCourante} categorieChoisi={categorieChoisi}/></Row>

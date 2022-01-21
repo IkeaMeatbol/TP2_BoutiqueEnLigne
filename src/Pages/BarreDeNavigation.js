@@ -23,6 +23,7 @@ function BarreDeNavigation()
         if (authentification !== undefined) {
             return (
                 <Nav className="justify-content-end" style={{ width: "100%" }}>
+                    <button style={{ background: 0, border:0 }} onClick={() => navigate('/Produits')}>Produits</button>
                     <button style={{ background: 0, border:0 }} onClick={() => LogOut()}>Déconnexion</button>
                 </Nav>
             );
@@ -58,7 +59,7 @@ function BarreDeNavigation()
                 <NavbarCollapse id="basic-navbar-nav">
                     <Nav style={{ width: "100%" }}>
                         <button style={{ background: 0, border:0 }} onClick={() => navigate('/')}>Accueil</button>
-                        <button style={{ background: 0, border:0 }} onClick={() => navigate('/Produits')}>Produits</button>
+                 
                         <PageAdmin />
                     </Nav>
                     
