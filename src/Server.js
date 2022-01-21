@@ -125,4 +125,41 @@ app.post('/api/produits/ajouter', (requete, reponse) => {
     }
 });
 
+app.put('/api/produits/modifier', (requete, reponse) => {
+    const {_id, nom, description, categorie, prix, rabais, quantite} = requete.body;
+    
+    if(_id !== undefined &&
+        nom !== undefined &&
+        description !== undefined &&
+        categorie !== undefined &&
+        prix !== undefined &&
+        rabais !== undefined &&
+        quantite !== undefined)
+        {            
+            utiliserBD(async(db) => 
+            {
+                await db.collection('Produits').updateOne(
+                    {
+                        _id: ObjectId(_id)
+                    },
+                    {$set:
+                        {
+                            nom: nom,
+                            categorie: categorie,
+                            description: description,
+                            prix: prix,
+                            rabais: rabais,
+                            quantite: quantite
+                        }
+                    }
+                );
+                reponse.status(200).send('Produit a été modifiée');
+            }, reponse).catch(() => reponse.status(500).send('Erreur'));            
+        }
+        else
+        {
+            reponse.status(500).send('Certains parametres sont indefinis');
+        }
+});
+
 app.listen(8000, () => "En écoute sur le port 8000");
