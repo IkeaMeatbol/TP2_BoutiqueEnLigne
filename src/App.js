@@ -11,6 +11,7 @@ import { PageProduits } from "./Pages/PageProduits";
 import { PageAdmin } from './Pages/PageAdmin';
 import { PageSupprimer } from './Pages/PageSupprimer';
 import { PageAjouter } from './Pages/PageAjouter';
+import { PageModifier } from './Pages/PageModifier';
 
 function App() {
   const [authentification, setAuthentification] = useState();
@@ -32,6 +33,7 @@ function App() {
             <Route exact path='/Admin' element={<PageAdmin />}/>
             <Route exact path = "/Admin/supprimer/:id" element={<PageSupprimer />} />
             <Route exact path = "/Admin/ajouter" element={<PageAjouter />} />
+            <Route exact path = "/Admin/modifier/:id" element={<PageModifier />} />
           </Route>
 
         </Routes>

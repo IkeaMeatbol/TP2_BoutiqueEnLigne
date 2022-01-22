@@ -14,6 +14,17 @@ export const PageAjouter = () => {
 
     const [erreurDonnees, setErreurDonnees] = useState(false);
 
+    function toEntier(numberToEntier){
+        if(Number.isInteger(numberToEntier)){            
+            return numberToEntier;
+            
+        }else{
+            const parsed = parseInt(numberToEntier, 10);
+            if(isNaN(parsed)){return 0;}            
+            return parsed;
+        }
+    }
+
     function verifierDonnees(){       
         if(nomProduit !== "" &&
         descriptionProduit !== "" &&
@@ -71,10 +82,10 @@ export const PageAjouter = () => {
                             <Form.Control type='number' placeholder='Prix' min='0.00' step='0.01' value={prixProduit} onChange={(event) => setPrix(event.target.value)} />
                         </FloatingLabel>
                         <FloatingLabel label='Rabais produit' className='mb-3' id='rabais'>
-                            <Form.Control type='number' placeholder='Rabais' min='0' value={rabaisProduit} onChange={(event) => setRabais(event.target.value)} />
+                            <Form.Control type='number' placeholder='Rabais' min='0' value={rabaisProduit} onChange={(event) => setRabais(toEntier(event.target.value))} />
                         </FloatingLabel>
                         <FloatingLabel label='Quantite produit' className='mb-3' id='quantite'>
-                            <Form.Control type='number' placeholder='Quantite' min='0' value={quantiteProduit} onChange={(event) => setQuantite(event.target.value)} />
+                            <Form.Control type='number' placeholder='Quantite' min='0' value={quantiteProduit} onChange={(event) => setQuantite(toEntier(event.target.value))} />
                         </FloatingLabel>
                         
                         {erreurDonnees && <span style={{color:'red'}}>*Les données saisies sont incorrectes, veuillez vérifier</span>}
