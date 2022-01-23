@@ -1,7 +1,7 @@
 import {React, useState, useEffect} from 'react';
-import { Alert, Button, Container, Table } from "react-bootstrap";
+import { Alert, Button, Container, Table, Row, Col, InputGroup, FormControl, Form } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import { BiTrash, BiEdit, BiSortAlt2 } from "react-icons/bi";
+import { BiTrash, BiEdit, BiSortAlt2, BiSearch } from "react-icons/bi";
 
 const Produit = (props) =>{
     return (        
@@ -118,6 +118,29 @@ const Stockage = (props) => {
 export const PageAdmin = () => {
     const [produits, setProduits] = useState([]);
 
+    const [donneesAChercher, setDonneesAChercher] = useState([]);
+    const [donneesFiltres, setDonneesFiltres] = useState([]);
+    const [categoryRecherche, setCategoryRecherche] = useState('nom');
+
+    const filtrer = (entree) => {
+        if(categoryRecherche === 'description'){
+            const produitsFiltre = produits.filter(f => f.description.toLowerCase().includes(entree));            
+            return setDonneesFiltres(produitsFiltre);
+        }
+        else if(categoryRecherche === 'categorie'){
+            const produitsFiltre = produits.filter(f => f.categorie.toLowerCase().includes(entree));            
+            return setDonneesFiltres(produitsFiltre);
+        }
+        else{
+            const produitsFiltre = produits.filter(f => f.nom.toLowerCase().includes(entree));            
+            return setDonneesFiltres(produitsFiltre);
+        }
+    }
+
+    useEffect(() => {
+        filtrer(donneesAChercher);
+    }, [donneesAChercher]);
+
     useEffect(() => {
         fetch('/api/produits')
         .then((result) => {return result.json()})
@@ -131,10 +154,27 @@ export const PageAdmin = () => {
                 <Alert variant='primary'>
                     <h1>Page de gestion</h1>
                 </Alert>
-                <Link style={{textDecoration: 'none'}} to={{ pathname: `/Admin/ajouter`}} className="d-grid gap-2">
-                    <Button variant='success'>Ajouter un nouveau produit</Button>
-                </Link>
-                <Stockage produits={produits} />
+                <Row>
+                    <Col xs={6}>
+                        <Link style={{textDecoration: 'none'}} to={{ pathname: `/Admin/ajouter`}} className="d-grid gap-2">
+                            <Button variant='success'>Ajouter un nouveau produit</Button>
+                        </Link>
+                    </Col>
+                    <Col>
+                        <Form.Select onChange={(e) => setCategoryRecherche(e.target.value)} style={{float: 'right'}}>
+                            <option value='nom'>Recherche par nom</option>
+                            <option value='description'>Recherche par description</option>
+                            <option value='categorie'>Recherche par categorie</option>
+                        </Form.Select>
+                    </Col>
+                    <Col>
+                        <InputGroup>
+                            <FormControl type='search' placeholder='entrez des symbols ici' value={donneesAChercher} onChange={(e) => setDonneesAChercher(e.target.value)} />
+                            <InputGroup.Text><BiSearch /></InputGroup.Text>
+                        </InputGroup>
+                    </Col>
+                </Row>
+                <Stockage produits={donneesFiltres.length ? donneesFiltres : produits} />
             </Container>            
         </>
     )
