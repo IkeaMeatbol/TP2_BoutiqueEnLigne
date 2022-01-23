@@ -64,23 +64,14 @@ function premierePage(){
     return pageCourante === 1 ? "disabled" : "";
      }
 
-function checkRabais (rabais)
-{
-  if (rabais > 1 ) {
-    rabais = rabais/100;
-  }
-  return rabais;
-}
+
      function detailProduitRabais ({ produit })
      {
-       //Vérification du rabais tout dépendament si la bd est construit pour avoir des rabais
-       //entre 0 et 1 ou 0 et 100
-      const rabais = checkRabais(produit.rabais);
        return (
          <>
       Ancien prix :  <div className="texteRabais">{produit.prix}$ </div>
-       <div>Nouveau prix : <div className="texteNouveauPrix">{(produit.prix * (1-rabais)).toFixed(2)}$ </div></div>
-       <div> Rabais : {(rabais*produit.prix).toFixed(2)}$ ({(rabais*100).toFixed()}%)</div>              
+       <div>Nouveau prix : <div className="texteNouveauPrix">{((produit.prix * (100-produit.rabais))/100).toFixed(2)}$ </div></div>
+       <div> Rabais : {((produit.rabais*produit.prix)/100).toFixed(2)}$ ({produit.rabais}%)</div>              
          </>
        )
      }
