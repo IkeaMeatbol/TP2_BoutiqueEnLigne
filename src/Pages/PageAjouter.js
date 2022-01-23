@@ -32,11 +32,11 @@ export const PageAjouter = () => {
         prixProduit > 0 &&
         rabaisProduit >= 0 &&
         rabaisProduit < 100 &&
-        quantiteProduit > 0
+        quantiteProduit >= 0
         )
         {
             setErreurDonnees(false);
-            const envoyerDonnees = fetch(`/api/produits/ajouter`,
+            fetch(`/api/produits/ajouter`,
             {
                 method: 'POST',
                 body: JSON.stringify({nom: nomProduit, 
