@@ -66,32 +66,32 @@ const Stockage = (props) => {
         <Table hover>
             <thead>
                 <tr>
-                    <th data-type="string">Nom
+                    <th>Nom
                         <button type='button' onClick={() => demandeTri('nom')} size="sm" style={{float: 'right', border: 'border-0'}}>
                             <BiSortAlt2 />
                         </button>
                     </th>
-                    <th data-type="string">Description
+                    <th>Description
                         <button type='button' onClick={() => demandeTri('description')} size="sm" style={{float: 'right'}}>
                             <BiSortAlt2 />
                         </button>
                     </th>
-                    <th data-type="string">Categorie
+                    <th>Categorie
                         <button type='button' onClick={() => demandeTri('categorie')} size="sm" style={{float: 'right'}}>
                             <BiSortAlt2 />
                         </button>
                     </th>
-                    <th data-type="number">Prix $
+                    <th>Prix $
                         <button type='button' onClick={() => demandeTri('prix')} size="sm" style={{float: 'right'}}>
                             <BiSortAlt2 />
                         </button>
                     </th>
-                    <th data-type="number">Rabais %
+                    <th>Rabais %
                         <button type='button' onClick={() => demandeTri('rabais')} size="sm" style={{float: 'right'}}>
                             <BiSortAlt2 />
                         </button>
                     </th>
-                    <th data-type="number">Quantite
+                    <th>Quantite
                         <button type='button' onClick={() => demandeTri('quantite')} size="sm" style={{float: 'right'}}>
                             <BiSortAlt2 />
                         </button>
