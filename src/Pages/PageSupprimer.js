@@ -2,8 +2,6 @@ import {React, useState, useEffect} from 'react';
 import { useParams, Link } from "react-router-dom";
 import { Alert, Button, ButtonGroup, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 
 export const PageSupprimer = () => {
 

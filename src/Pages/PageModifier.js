@@ -108,7 +108,7 @@ export const PageModifier = () => {
                         <FloatingLabel label='Quantite produit' className='mb-3' id='quantite'>
                             <Form.Control type='number' placeholder='Quantite' min='0' onChange={(event) => setQuantite(toEntier(event.target.value))} defaultValue={quantiteProduit} />
                         </FloatingLabel>
-                        <div class='col-12'>
+                        <div className='col-12'>
                             {erreurDonnees && <span style={{color:'red'}}>*Les données saisies sont incorrectes, veuillez vérifier</span>}
                         </div>
                         <Button  className="me-4" variant='primary' type='button' onClick={verifierDonnees}>Changer ce produit</Button>
