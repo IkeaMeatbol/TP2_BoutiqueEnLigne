@@ -7,11 +7,13 @@ export const PaginationArticle = ({ produits, nombreProduit, categorieChoisi, au
   const [pageCourante, setPageCourante] = useState(1);
   const [nombrePages, setNombresPages] = useState();
 
-  //Serait a utiliser pour ajouter la section panier
-  // const [utilisateur, setUtilisateur] = useState({
-  //   nomClient : authentification.authentification,
-  //   produits : []
-  // })
+
+  const [utilisateur, setUtilisateur] = useState({
+    nomClient : authentification.authentification,
+    produits : []
+  })
+
+  console.log(utilisateur);
 
   function affichagePage(nombrePages) {
     //Tableau vide qui va se remplir selon le nombre de page qui est déterminé par les catégories choisient et le nombre
@@ -90,6 +92,7 @@ function premierePage(){
             {/* Ici je regarde s'il y a un rabais sur l'article  */}
             {produit.rabais >0 ? detailProduitRabais({produit}) : produit.prix+"$"} <br />        
             </Card.Text>
+           
             {produit.quantite === 0 ? <b>Produit non disponible</b> :  <Button variant="success" onClick={()=> alert('Section panier à venir')}> Ajouter au panier</Button>}       
           </Card.Body>
         </Card>        

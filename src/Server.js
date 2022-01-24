@@ -162,4 +162,42 @@ app.put('/api/produits/modifier', (requete, reponse) => {
         }
 });
 
+
+app.post("/api/produits/:utilisateur/panier", async (requete, reponse) => {
+    const utilisateur = requete.params.utilisateur;
+    const {id, nom, prix, rabais, quantite} = requete.body;
+    await utiliserBD(async (db) => {
+      const infoUtilisateur = await db
+        .collection("Utilisateurs")
+        .findOne({ Username: utilisateur });
+
+        const produitExistant =  await db
+        .collection("Produits")
+        .findOne({id : id, 
+        nom : nom });
+
+        if(infoUtilisateur != null && produitExistant != null)
+        {
+            await db.collection("panier").updateOne(
+              { Username: utilisateur },
+              {
+                $push: {
+                  Panier : {
+                    produit : nom,
+                    prixApresRabais : (prix*(100-rabais)),
+                    quantite : quantite,
+                  }
+                },
+              }, 
+              );
+             
+        }
+      const infoPanierAjour = await db
+        .collection("panier")
+        .findOne({ Username: utilisateur });
+  
+      reponse.status(200).json(infoPanierAjour);
+    });
+  });
+
 app.listen(8000, () => "En écoute sur le port 8000");
