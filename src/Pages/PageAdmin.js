@@ -38,28 +38,38 @@ const Stockage = (props) => {
 
     let produitsTriees = props.produits;
     if(champTrie !== null && sensDeTri === 'ascend'){
-        produitsTriees.sort((produitPrecedent, produitSuivant) => {
-        
-            if(produitPrecedent[champTrie] < produitSuivant[champTrie]){
-                return -1;
-            }
-            if(produitPrecedent[champTrie] > produitSuivant[champTrie]){
-                return 1;
-            }
-            return 0;
-        });
+        if(champTrie === 'prix' || champTrie === 'rabais' || champTrie === 'quantite'){
+            produitsTriees.sort((produitPrecedent, produitSuivant) => {
+                return (produitPrecedent[champTrie] - produitSuivant[champTrie]);
+            });
+        }else{
+            produitsTriees.sort((produitPrecedent, produitSuivant) => {        
+                if(produitPrecedent[champTrie].toLowerCase() < produitSuivant[champTrie].toLowerCase()){
+                    return -1;
+                }
+                if(produitPrecedent[champTrie].toLowerCase() > produitSuivant[champTrie].toLowerCase()){
+                    return 1;
+                }
+                return 0;
+            });
+        }            
     }
     else if(champTrie !== null && sensDeTri === 'descend'){
-        produitsTriees.sort((produitPrecedent, produitSuivant) => {
-        
-            if(produitPrecedent[champTrie] > produitSuivant[champTrie]){
-                return -1;
-            }
-            if(produitPrecedent[champTrie] < produitSuivant[champTrie]){
-                return 1;
-            }
-            return 0;
-        });
+        if(champTrie === 'prix' || champTrie === 'rabais' || champTrie === 'quantite'){
+            produitsTriees.sort((produitPrecedent, produitSuivant) => {
+                return (produitSuivant[champTrie] - produitPrecedent[champTrie]);
+            });
+        }else{
+            produitsTriees.sort((produitPrecedent, produitSuivant) => {                                    
+                if(produitPrecedent[champTrie].toLowerCase() > produitSuivant[champTrie].toLowerCase()){
+                    return -1;
+                }
+                if(produitPrecedent[champTrie].toLowerCase() < produitSuivant[champTrie].toLowerCase()){
+                    return 1;
+                }
+                return 0;
+            });
+        }
     }
 
     return (
